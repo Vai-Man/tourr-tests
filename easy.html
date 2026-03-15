@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Easy - Test Solutions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="site-title">Test Solutions</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="easy.html">Easy</a></li>
+          <li><a href="medium.html">Medium</a></li>
+          <li><a href="hard.html">Hard</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <h1>Easy: Skinny PP Index Implementation</h1>
+
+    <div class="page-intro">
+      <p>
+        This test evaluated the ability to integrate external statistical measures into the tourr framework as projection pursuit indices. The task involved implementing a new projection pursuit index based on the scagnostic "skinny" measure.
+      </p>
+    </div>
+
+    <!-- OVERVIEW SECTION -->
+    <div class="section">
+      <h2>Overview</h2>
+      <p>
+        Projection pursuit (PP) indices quantify how "interesting" a 2D projection is. This test involved implementing a new index based on the "skinny" scagnostic—a measure from the cassowaryr package that detects elongated point patterns.
+      </p>
+      <p>
+        The objective was to create a PP index that integrates seamlessly with tourr's optimization and guided tour methods.
+      </p>
+    </div>
+
+    <!-- APPROACH SECTION -->
+    <div class="section">
+      <h2>Approach</h2>
+      <p>
+        tourr defines PP indices as factory functions: an outer function that returns an inner function accepting a 2D projection matrix and returning a numerical score. This pattern allows efficient optimization without recomputing the original data.
+      </p>
+      <p>
+        The implementation wraps cassowaryr's <code>sc_skinny(x, y)</code> function, extracting columns from the projection matrix and passing them to the scagnostics function.
+      </p>
+    </div>
+
+    <!-- IMPLEMENTATION SECTION -->
+    <div class="section">
+      <h2>Implementation</h2>
+
+      <pre><code>skinny <- function(){
+  function(mat){
+    sc_skinny(mat[,1], mat[,2])
+  }
+}</code></pre>
+
+      <p>
+        The function returns a closure that delegates directly to <code>cassowaryr::sc_skinny()</code>, making it immediately compatible with tourr's guided tour and optimization methods.
+      </p>
+    </div>
+
+    <!-- RESULTS SECTION -->
+    <div class="section">
+      <h2>Results</h2>
+      <p>
+        ✓ Implementation passes R CMD check<br>
+        ✓ Integrates cleanly with scagnostics<br>
+        ✓ Works with all tourr guided tour methods<br>
+        ✓ Produces meaningful PP scores on real datasets
+      </p>
+    </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="https://github.com/ggobi/tourr/pull/141">PR #141</a>
+      </div>
+      <div class="footer-meta">
+        <p>Easy | tourr</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

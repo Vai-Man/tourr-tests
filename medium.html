@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medium - Test Solutions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="site-title">Test Solutions</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="easy.html">Easy</a></li>
+          <li><a href="medium.html">Medium</a></li>
+          <li><a href="hard.html">Hard</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <h1>Medium: Guided Tour Vignette</h1>
+
+    <div class="page-intro">
+      <p>
+        This test evaluated the ability to communicate complex statistical concepts through practical examples and demonstrations. The task involved writing a comprehensive R Markdown vignette that showcases the skinny projection pursuit index integrated with tourr's guided tour framework and optimization methods such as jellyfish.
+      </p>
+    </div>
+
+    <!-- OVERVIEW SECTION -->
+    <div class="section">
+      <h2>Overview</h2>
+      <p>
+        The vignette demonstrates the skinny scagnostic index in action. The skinny measure characterizes how narrow or elongated a point cloud appears in a 2D projection, useful for finding projections that reveal linear structure in data.
+      </p>
+      <p>
+        Key demonstrations include computing skinny scores, running guided tours, using the jellyfish optimizer, and comparing skinny with other PP indices like holes().
+      </p>
+    </div>
+
+    <!-- APPROACH SECTION -->
+    <div class="section">
+      <h2>Approach</h2>
+      <p>
+        The vignette uses the flea dataset and demonstrates: (1) standardizing the data, (2) computing skinny index values on specific projections, (3) running guided tours that optimize for skinny, (4) using the jellyfish population-based optimizer, and (5) comparing skinny scores with other indices like holes() to show how different indices capture different geometric properties.
+      </p>
+    </div>
+
+    <!-- IMPLEMENTATION SECTION -->
+    <div class="section">
+      <h2>Implementation</h2>
+      <p>
+        The vignette demonstrates the skinny index with real data and runnable examples:
+      </p>
+
+      <pre><code>library(tourr)
+
+# Standardize the flea dataset
+f <- apply(flea[, 1:6], 2, function(x) (x - mean(x)) / sd(x))
+
+# Compute skinny index on a random projection
+set.seed(2026)
+proj <- basis_random(ncol(f), 2)
+skinny()(f %*% proj)
+
+# Guided tour optimizing skinny index
+set.seed(2026)
+animate_xy(f,
+  tour_path = guided_tour(skinny()),
+  col = flea$species)</code></pre>
+
+      <p>
+        The vignette also demonstrates the jellyfish optimizer and compares skinny with other indices like holes().
+      </p>
+    </div>
+
+    <!-- RESULTS SECTION -->
+    <div class="section">
+      <h2>Results</h2>
+      <p>
+        ✓ Demonstrates skinny index on real flea dataset<br>
+        ✓ Shows guided tour optimization finding elongated point patterns<br>
+        ✓ Illustrates jellyfish optimizer for population-based search<br>
+        ✓ Compares skinny with holes() index showing different geometric interpretations
+      </p>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="https://github.com/ggobi/tourr/pull/141">PR #141</a>
+      </div>
+      <div class="footer-meta">
+        <p>Medium | tourr</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

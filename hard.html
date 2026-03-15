@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hard - Test Solutions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="site-title">Test Solutions</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="easy.html">Easy</a></li>
+          <li><a href="medium.html">Medium</a></li>
+          <li><a href="hard.html">Hard</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <h1>Hard: Financial Analysis Pipeline</h1>
+
+    <div class="page-intro">
+      <p>
+        This test evaluated the ability to design, implement, and execute a complete end-to-end data analysis pipeline combining data acquisition, feature engineering, statistical analysis, visualization, and interpretation. The task involved building a real-world application using the skinny projection pursuit index on financial data.
+      </p>
+    </div>
+
+    <!-- OVERVIEW SECTION -->
+    <div class="section">
+      <h2>Overview</h2>
+      <p>
+        This test involved designing and implementing a complete data analysis pipeline: acquiring financial data, computing features, applying directed tours with the skinny PP index, and generating visualizations.
+      </p>
+      <p>
+        The pipeline demonstrates integration of multiple R packages, handling real-world data, and applying projection pursuit to financial pattern discovery.
+      </p>
+    </div>
+
+    <!-- APPROACH SECTION -->
+    <div class="section">
+      <h2>Approach</h2>
+      <p>
+        The pipeline follows five steps:
+      </p>
+      <ol>
+        <li><strong>Data acquisition:</strong> Retrieve historical price data using yahoofinancer</li>
+        <li><strong>Feature engineering:</strong> Compute returns, volatility, correlations</li>
+        <li><strong>Exploratory analysis:</strong> Run guided tours with skinny index as optimization criterion</li>
+        <li><strong>Comparative analysis:</strong> Compare results across different PP indices</li>
+        <li><strong>Visualization:</strong> Generate plots and animated tours documenting findings</li>
+      </ol>
+    </div>
+
+    <!-- IMPLEMENTATION SECTION -->
+    <div class="section">
+      <h2>Implementation</h2>
+
+      <pre><code>symbols <- c(
+  "BTC-USD", "ETH-USD",
+  "AAPL", "MSFT", "NVDA",
+  "TSLA", "AMZN", "GOOG", "META"
+)
+
+# Download prices and compute log returns
+getSymbols(symbols, src = "yahoo", from = "2025-01-01", to = "2025-12-31")
+price_matrix <- as.matrix(data[, -1])
+returns <- diff(log(price_matrix))
+X <- scale(returns)
+
+# Define Skinny Index
+skinny <- function() {
+  function(mat) {
+    cassowaryr::sc_skinny(mat[,1], mat[,2])
+  }
+}
+
+# Render animated guided tour
+render_gif(
+  X,
+  guided_tour(skinny()),
+  display_xy(),
+  gif_file = "finance_skinny_tour.gif",
+  apf = 1/30,
+  frames = 50
+)</code></pre>
+    </div>
+
+    <div class="section">
+      <h2>Results</h2>
+      
+      <h3>Animated Tour Visualization</h3>
+      <p>
+        The guided tour generates a GIF showing how the projection evolves as the optimization searches for elongated point patterns.
+      </p>
+      <img src="finance_skinny_tour.gif" alt="Guided tour with skinny index" style="max-width: 100%; border: 1px solid #bdc3c7; margin: 1rem 0;">
+      
+      <h3>Skinny Score Distribution</h3>
+      <p>
+        Among 500 random projections, the skinny index produces a distribution of scores. The histogram shows the frequency of different index values.
+      </p>
+      <img src="skinny_score_distribution.png" alt="Distribution of skinny scores" style="max-width: 100%; border: 1px solid #bdc3c7; margin: 1rem 0;">
+      
+      <h3>Key Findings</h3>
+      <p>
+        <strong>Tech stock cluster:</strong> AAPL, MSFT, NVDA, META, and GOOG show correlated movement with similar arrow directions.<br>
+        <strong>Crypto separation:</strong> BTC and ETH behave differently from equities, indicating distinct return dynamics.<br>
+        <strong>Volatility patterns:</strong> TSLA exhibits higher volatility, causing separation from other tech stocks in projection space.<br>
+        <strong>Daily returns structure:</strong> Most observations cluster near the center with occasional large movements at the periphery.
+      </p>
+      
+      <h3>Interpretation</h3>
+      <p>
+        The skinny index successfully identified projections revealing latent structure in the financial returns. The elongated point patterns highlight correlations among technology stocks and the distinct behavior of cryptocurrencies relative to traditional equities.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="https://gist.github.com/Vai-Man/1831cf8cf31b08a602cb48331b519cab">Gist</a>
+      </div>
+      <div class="footer-meta">
+        <p>Hard | tourr</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
