@@ -89,7 +89,31 @@ render_gif(
   gif_file = "finance_skinny_tour.gif",
   apf = 1/30,
   frames = 50
-)</code></pre>
+)
+
+# Search for best projection across 500 random basis
+n_search <- 500
+proj_list <- replicate(
+  n_search,
+  basis_random(ncol(X), 2),
+  simplify = FALSE
+)
+
+scores <- sapply(proj_list, function(p) {
+  proj <- X %*% p
+  cassowaryr::sc_skinny(proj[,1], proj[,2])
+})
+
+# Visualize skinny score distribution
+png("skinny_score_distribution.png", width = 800, height = 600)
+hist(
+  scores,
+  breaks = 30,
+  col = "lightblue",
+  main = "Distribution of Skinny Scores",
+  xlab = "Skinny Index Value"
+)
+dev.off()</code></pre>
     </div>
 
     <div class="section">
